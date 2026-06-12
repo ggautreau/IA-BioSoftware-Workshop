@@ -74,6 +74,22 @@ covr::package_coverage()   # Couverture (100 %)
 devtools::check()          # Verification complete (0 error / 0 warning / 0 note)
 ```
 
+### Audit des dependances (oysteR)
+
+`oysteR` interroge l'API Sonatype OSS Index, qui requiert depuis peu une
+authentification (un compte gratuit suffit : <https://ossindex.sonatype.org>).
+Sans identifiants, l'API renvoie une erreur HTTP 401. Une fois le jeton obtenu :
+
+```{r, eval = FALSE}
+Sys.setenv(OSSINDEX_USER = "votre-email", OSSINDEX_TOKEN = "votre-token")
+library(oysteR)
+audit <- audit_description(".")
+get_vulnerabilities(audit)   # data.frame vide attendu = aucune vulnerabilite
+```
+
+Les dependances runtime (`ggplot2`, `scales`, `rlang`) sont des paquets CRAN
+courants et a jour, sans avis de securite connu.
+
 ## Reference
 
 Kelliher CM, Leman AR, Sierra CS, Haase SB (2016) Investigating Conservation of
