@@ -104,6 +104,20 @@ Consulter les consignes associées à chaque partie du projet :
 - Ajouter le modèle utilisé
 - Ajouter le nombre de requêtes réalisées
 
+## Traçabilité de l'assistance IA
+
+- **Groupe** : XX — reverse engineering (reproduction de figure)
+- **Outil utilisé** : Claude Code
+- **Modèle utilisé** : Claude Opus 4.8 (`claude-opus-4-8`, confirmé via la commande `/model`)
+- **Nombre de requêtes réalisées** : ~30 (prompts utilisateur de la session)
+- **Nombre de tokens utilisés** : _à compléter avec la sortie de la commande `/cost`_
+
+**Travail réalisé** : reproduction de la **Figure 2A** de l'article (heatmap des
+gènes périodiques du cycle cellulaire de *S. cerevisiae*), réalisée à la fois en
+**Python** (`tp_python/`) et en **R** (`tp_r/cellcyclefig2a/`), avec mise aux
+normes complète (environnement reproductible, typage/documentation, qualité,
+sécurité, tests, couverture, CI) et application des bonnes pratiques open source.
+
 ## Contributor Code of Conduct
 
 Veuillez noter que ce projet est publié avec le [Contributor Covenant Code of Conduct](https://www.contributor-covenant.org/). En participant, vous acceptez d’en respecter les termes. Voir le fichier [CODE_OF_CONDUCT](code_of_conduct.md).
