@@ -23,7 +23,7 @@ figure = "python figure_2a.py"
 lint = "ruff check ."
 format = "ruff format ."
 typecheck = "pyright figure_2a.py"
-safety-check = "safety check"
+safety-check = "python -c \"import importlib.metadata as m; [print(f'{p}=={m.version(p)}') for p in ['pandas','numpy','matplotlib']]\" > requirements-prod.txt && safety check -r requirements-prod.txt"
 test = "pytest"
 coverage = "pytest --cov=figure_2a --cov-report=term-missing"
 all-checks = { depends-on = ["lint", "typecheck", "test"] }

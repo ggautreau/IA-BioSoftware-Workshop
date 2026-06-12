@@ -10,6 +10,9 @@ __pycache__/
 coverage.xml
 htmlcov/
 
+# Fichier de requirements genere pour le scan safety
+requirements-prod.txt
+
 # Pixi
 .pixi/
 

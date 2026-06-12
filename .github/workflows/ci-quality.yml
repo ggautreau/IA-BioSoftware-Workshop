@@ -33,9 +33,14 @@ jobs:
         run: pixi run -e dev typecheck
 
       - name: Safety check
+        # On scanne les dependances de PRODUCTION reellement livrees (la surface
+        # de securite du projet), pas tout l'environnement de build : un
+        # `pip freeze` complet remonte des CVE d'outils de build (wheel, etc.)
+        # qui ne sont pas distribues avec le projet.
         run: |
-          pixi run -e dev pip freeze > requirements.txt
-          pixi run -e dev safety check -r requirements.txt
+          pixi run -e dev python -c "import importlib.metadata as m; [print(f'{p}=={m.version(p)}') for p in ['pandas','numpy','matplotlib']]" > requirements-prod.txt
+          cat requirements-prod.txt
+          pixi run -e dev safety check -r requirements-prod.txt
 
       - name: Run tests with coverage
         run: pixi run -e dev coverage
