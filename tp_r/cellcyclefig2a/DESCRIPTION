@@ -1,0 +1,34 @@
+Package: cellcyclefig2a
+Title: Reproduction de la Figure 2A de Kelliher et al. 2016
+Version: 0.1.0
+Authors@R:
+    person(
+      given = "Guillaume",
+      family = "Gautreau",
+      role = c("aut", "cre"),
+      email = "guillaume.gautreau44@gmail.com",
+      comment = c(ORCID = "0000-0002-0970-9361")
+    )
+Description: Reproduit la Figure 2A de Kelliher et al. 2016 (PLOS Genetics) :
+    une heatmap des genes periodiques du cycle cellulaire de Saccharomyces
+    cerevisiae. Les profils d'expression sont normalises en z-score par gene,
+    puis les genes sont ordonnes par phase du pic d'expression afin de faire
+    apparaitre les vagues diagonales de transcription successives.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Depends:
+    R (>= 4.2.0)
+Imports:
+    ggplot2 (>= 3.4.0),
+    rlang (>= 1.0.0),
+    scales (>= 1.2.0),
+    stats,
+    utils
+Suggests:
+    testthat (>= 3.0.0),
+    covr,
+    lintr,
+    styler
+Config/testthat/edition: 3

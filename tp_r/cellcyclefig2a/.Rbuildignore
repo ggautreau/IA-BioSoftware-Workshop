@@ -1,0 +1,10 @@
+^renv$
+^renv\.lock$
+^\.Rprofile$
+^run\.R$
+^\.lintr$
+^README\.Rmd$
+^LICENSE\.md$
+^\.Rbuildignore$
+^figure_2a\.png$
+^\.github$
