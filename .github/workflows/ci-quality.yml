@@ -1,0 +1,61 @@
+name: Quality checks
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [main]
+
+defaults:
+  run:
+    working-directory: tp_python
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Pixi
+        uses: prefix-dev/setup-pixi@v0.8.1
+        with:
+          pixi-version: latest
+          manifest-path: tp_python/pixi.toml
+          environments: dev
+
+      - name: Lint (Ruff)
+        run: pixi run -e dev lint
+
+      - name: Format check (Ruff)
+        run: pixi run -e dev ruff format --check .
+
+      - name: Type check (Pyright)
+        run: pixi run -e dev typecheck
+
+      - name: Safety check
+        run: |
+          pixi run -e dev pip freeze > requirements.txt
+          pixi run -e dev safety check -r requirements.txt
+
+      - name: Run tests with coverage
+        run: pixi run -e dev coverage
+
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v4
+        with:
+          files: tp_python/coverage.xml
+          fail_ci_if_error: false
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: secret,vuln,misconfig
+          exit-code: 1
+          severity: CRITICAL,HIGH

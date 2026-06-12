@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "Si vous utilisez ce logiciel, merci de le citer comme ci-dessous."
+type: software
+title: "Figure 2A - Cell-Cycle-Regulated Transcription"
+abstract: "Reproduction de la Figure 2A de Kelliher et al. 2016 : heatmap des genes periodiques du cycle cellulaire de Saccharomyces cerevisiae (normalisation z-score, tri par phase)."
+authors:
+  - family-names: "Gautreau"
+    given-names: "Guillaume"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"  # TODO: renseigner votre ORCID
+    affiliation: "IA-BioSoftware-Workshop"
+repository-code: "https://github.com/ggautreau/IA-BioSoftware-Workshop"
+license: MIT
+version: "0.1.0"
+date-released: "2026-06-12"
+keywords:
+  - bioinformatique
+  - cycle-cellulaire
+  - transcriptomique
+  - python

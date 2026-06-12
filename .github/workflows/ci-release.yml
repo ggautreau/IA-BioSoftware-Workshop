@@ -1,0 +1,44 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"   # Se déclenche sur les tags comme v1.0.0, v0.2.1...
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # Nécessaire pour créer la release
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # Récupère tout l'historique pour le changelog
+
+      - name: Install Pixi
+        uses: prefix-dev/setup-pixi@v0.8.1
+        with:
+          manifest-path: tp_python/pixi.toml
+          environments: dev
+
+      - name: Run all checks before release
+        working-directory: tp_python
+        run: pixi run -e dev all-checks
+
+      - name: Generate changelog
+        uses: orhun/git-cliff-action@v3
+        id: git-cliff
+        with:
+          config: tp_python/cliff.toml
+          args: --latest --strip header
+        env:
+          OUTPUT: CHANGELOG.md
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: CHANGELOG.md
+          generate_release_notes: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
