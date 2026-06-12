@@ -122,7 +122,7 @@ Le dépôt suit les recommandations de
 | **Outil** | Claude Code |
 | **Modèle** | Claude Opus 4.8 (`claude-opus-4-8`, confirmé via `/model`) |
 | **Requêtes** | ~30 (prompts utilisateur de la session) |
-| **Tokens** | ~248,9k au total (117,9k en entrée + 131,0k en sortie) |
+| **Tokens** | ~272,6k au total (120,0k en entrée + 152,6k en sortie ; ~28,2M lus en cache) — coût ~21,55 $ |
 
 ## Licence
 
