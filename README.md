@@ -110,7 +110,7 @@ Consulter les consignes associées à chaque partie du projet :
 - **Outil utilisé** : Claude Code
 - **Modèle utilisé** : Claude Opus 4.8 (`claude-opus-4-8`, confirmé via la commande `/model`)
 - **Nombre de requêtes réalisées** : ~30 (prompts utilisateur de la session)
-- **Nombre de tokens utilisés** : _à compléter avec la sortie de la commande `/cost`_
+- **Nombre de tokens utilisés** : ~248,9k au total (117,9k en entrée + 131,0k en sortie) — modèle `claude-opus-4-8`
 
 **Travail réalisé** : reproduction de la **Figure 2A** de l'article (heatmap des
 gènes périodiques du cycle cellulaire de *S. cerevisiae*), réalisée à la fois en

@@ -82,9 +82,7 @@ d'expression RNA-seq, accession GEO **GSE80474**).
 - **Outil** : Claude Code
 - **Modèle** : Claude Opus 4.8 (`claude-opus-4-8`)
 - **Nombre de requêtes** : ~30 (prompts utilisateur de la session)
-- **Nombre de tokens utilisés** : _à compléter avec la sortie de `/cost`_ (la
-  commande `/cost` de Claude Code affiche le total de tokens et le coût de la
-  session)
+- **Nombre de tokens utilisés** : ~248,9k au total (117,9k en entrée + 131,0k en sortie)
 
 ## Licence
 
