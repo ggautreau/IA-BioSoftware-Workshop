@@ -18,118 +18,121 @@
   </tr>
 </table>
 
-# Utilisation des IA génératives comme appui à la programmation et au scripting pour la biologie
+# Reproduction de la Figure 2A — *Cell-Cycle-Regulated Transcription*
 
-## Information pratique et programme
+Ce dépôt reproduit la **Figure 2A** de Kelliher *et al.* 2016 (*PLOS Genetics*,
+[10.1371/journal.pgen.1006453](https://doi.org/10.1371/journal.pgen.1006453)) :
+une **heatmap des gènes périodiques du cycle cellulaire** de *Saccharomyces
+cerevisiae*. La figure est reconstruite **à partir des données brutes**, puis le
+code est mis aux normes de développement logiciel et de science ouverte.
 
-- <https://moodle.france-bioinformatique.fr/course/view.php?id=41>
-- [https://ifb-elixirfr.github.io/AI-for-scripting-bioanalysis/](https://ifb-elixirfr.github.io/AI-for-scripting-bioanalysis/)
+> Réalisé dans le cadre de l'atelier *« Utilisation des IA génératives comme appui
+> à la programmation et au scripting pour la biologie »* (IFB / Université Paris
+> Cité / MERIT) — **groupe XX, reverse engineering**. Le sujet d'origine est le
+> dépôt [IFB-ElixirFr/IA-BioSoftware-Workshop](https://github.com/IFB-ElixirFr/IA-BioSoftware-Workshop).
 
-- [https://iabioscripting.univ-lyon1.fr/](https://iabioscripting.univ-lyon1.fr/)
+<p align="center">
+  <img src="tp_python/figure_2a.png" alt="Figure 2A reproduite (Python)" height="320">
+</p>
 
+## Ce qui a été fait
 
-## Organisation
+La même figure a été reproduite **deux fois**, en **Python** et en **R**, chaque
+version étant accompagnée d'une mise aux normes complète (environnement
+reproductible, qualité, sécurité, tests, documentation, CI).
 
-Le colloque est organisé par les trois organisations suivantes :
+### La démarche scientifique (rétro-ingénierie de la figure)
 
-- [Institut Français de Bioinformatique (IFB)](https://www.france-bioinformatique.fr/)
-- Université Paris Cité ([plateforme iPOP-UP](https://ipop.u-paris.fr/) et [DU omiques](https://ipop.u-paris.fr/duomiques/))
-- [Réseau métier en bioinformatique (MERIT)](https://merit.cnrs.fr/)
+1. **Chargement** des profils d'expression RNA-seq (`data/oscillating-genes_1705_normalized-profiles.tsv`) : 1705 gènes × 50 points temporels (1 prélèvement / 5 min, accession GEO **GSE80474**).
+2. **Normalisation z-score** par gène : `(x − moyenne) / écart-type`.
+3. **Tri des gènes par phase du pic** d'expression, extraite de la composante de Fourier à la période du cycle cellulaire (~75 min) → fait apparaître les vagues diagonales de transcription successives.
+4. **Heatmap** : colormap cyan → noir → jaune, bornée à [−1.5, +1.5], comme dans l'article.
 
-### Encadrants
+## Les deux implémentations
 
-- [Imane Messak](https://orcid.org/0000-0002-1654-6652) (Institut Français de Bioinformatique)
-- [Thomas Denecker](https://orcid.org/0000-0003-1421-7641) (Institut Français de Bioinformatique)
-- [Baptiste Rousseau](https://orcid.org/0009-0002-1723-2732) (Institut Français de Bioinformatique)
+| | Python — [`tp_python/`](tp_python) | R — [`tp_r/cellcyclefig2a/`](tp_r/cellcyclefig2a) |
+|---|---|---|
+| Environnement | **Pixi** (`pixi.toml`) | **renv** (`renv.lock`) |
+| Qualité / style | **ruff** | **styler** + **lintr** (0 warning) |
+| Typage / doc | **pyright** (0 erreur) | **roxygen2** (package R documenté) |
+| Sécurité | **safety** + **trivy** (0 vuln) | **oysteR** (voir note ci-dessous) |
+| Tests | **pytest** — 12 tests | **testthat** — 18 tests |
+| Couverture | **99 %** | **100 %** |
+| Vérification | CI verte | `R CMD check` : **0 error / 0 warning / 0 note** |
 
-## Atelier : Développement logiciel
+### Démarrage rapide
 
-Dans cet atelier, nous explorerons comment l’intelligence artificielle peut devenir un véritable assistant au service du développement logiciel. À l’aide d’outils comme [Claude](https://claude.ai/), [ChatGPT](https://chat.openai.com/), [Perplexity](https://www.perplexity.ai/) ou d’autres assistants basés sur l’IA, les participant·es apprendront à :
+**Python**
+```bash
+cd tp_python
+pixi install
+pixi run python figure_2a.py        # génère figure_2a.png
+pixi run all-checks                 # lint + typecheck + tests
+```
 
-- transformer un code généré par IA en un projet plus clair, plus robuste et plus lisible ;
-- mettre en place un environnement de travail reproductible ;
-- améliorer la qualité du code, sa documentation et sa maintenabilité ;
-- ajouter des tests et des vérifications permettant de fiabiliser le projet ;
-- appliquer des contrôles liés à la sécurité et aux dépendances ;
-- structurer le projet selon les standards attendus en Python ou en R ;
-- faire évoluer le dépôt GitHub vers un projet open source documenté, partageable, citable et durable.
+**R**
+```bash
+cd tp_r/cellcyclefig2a
+Rscript -e 'renv::restore()'
+Rscript run.R                       # génère figure_2a.png
+Rscript -e 'devtools::check()'      # vérification complète du package
+```
 
-Cet atelier a pour but de montrer comment l’IA peut accompagner les bioinformaticien·nes dans leurs projets de scripting et d’analyse, en réduisant le temps passé à déboguer et en augmentant la qualité du code produit.
+## Science ouverte
 
-## Objectif du projet
+Le dépôt suit les recommandations de
+[`instruction_bonne_pratique.md`](instruction_bonne_pratique.md) :
 
-Ce dépôt est organisé autour de **deux travaux pratiques complémentaires**, un TP **Python** et un TP **R**.
+- **Licence** : code sous **MIT** (matériel pédagogique d'origine sous CC BY-SA 4.0).
+- **Citabilité** : [`CITATION.cff`](tp_python/CITATION.cff) + [`codemeta.json`](tp_python/codemeta.json) (auteur, ORCID, affiliation).
+- **Communauté** : [`CONTRIBUTING`](.github/CONTRIBUTING.md), templates d'issues et de Pull Request.
+- **Intégration continue** : [`.github/workflows/`](.github/workflows) — CI qualité (lint, types, sécurité, tests) + CI de release (changelog automatique via git-cliff).
+- **Pre-commit** : `.pre-commit-config.yaml` (whitespace, secrets, ruff…).
 
-L’objectif est de partir d’un **[article scientifique](10.1371/journal.pgen.1006453)** et des **données associées**, puis d’utiliser une IA générative pour produire un script capable de **recréer la figure 2A de l’article**.
-
-Pour ce projet, les fichiers fournis dans le dossier `/data` sont :
-
-- Article scientifique : [`article_TP_2026_bioscripting2.pdf`](./data/article_TP_2026_bioscripting2.pdf)
-- Données associées : [`pgen.1006453.s002.xlsx`](./data/pgen.1006453.s002.xlsx)
-
-Une fois le premier script obtenu avec l’aide d’une IA, l’objectif est ensuite de le retravailler pour le rendre plus propre, plus robuste, plus lisible et plus reproductible, en suivant les consignes détaillées dans chaque TP.
-
-- Le **TP Python** consiste à mettre aux normes un script Python généré par IA en appliquant les bonnes pratiques de développement logiciel : environnement reproductible avec **Pixi**, qualité du code, typage, sécurité, tests et documentation.
-- Le **TP R** consiste à restructurer un script généré par IA sous la forme d’un **package R**, avec gestion d’environnement via **renv**, documentation **roxygen2**, tests, couverture et audit qualité.
-
-En complément, le fichier [`instruction_bonne_pratique.md`](./instruction_bonne_pratique.md) situé à la racine du projet explique comment transformer ce dépôt GitHub en un projet **open source** respectant les standards de la communauté scientifique et logicielle.
+> **Note — audit `oysteR` (R)** : l'audit des dépendances R interroge l'API
+> Sonatype OSS Index, qui requiert désormais une authentification (un compte
+> gratuit suffit). Sans identifiants l'API renvoie HTTP 401 ; la marche à suivre
+> est documentée dans le [README du package R](tp_r/cellcyclefig2a/README.md).
 
 ## Structure du dépôt
 
-Le dépôt contient deux parties principales :
-
-- **TP Python** : travail autour d’un script Python généré par IA, à rendre reproductible, maintenable, testé et documenté.
-- **TP R** : travail autour d’un script généré par IA à transformer en package R propre, documenté et auditable.
-
-## Instructions par TP
-
-Consulter les consignes associées à chaque partie du projet :
-
-- [Instructions du TP Python](./tp_python/instruction.md)
-- [Instructions du TP R](./tp_r/instruction.md)
-- [Instructions de bonnes pratiques pour le dépôt GitHub](./instruction_bonne_pratique.md)
-
-### Instruction pour l'atelier
-
-1. Fork le projet
-2. Clone le projet
-3. Ouvre le projet et commence à travailler avec ton outil IA préféré
-4. Utilise l’article scientifique et le fichier de données fournis pour reproduire une figure
-5. Améliore ensuite le projet en suivant les consignes du TP Python ou du TP R
-6. Applique enfin les recommandations de `instruction_bonne_pratique.md` pour rendre le dépôt plus propre, réutilisable et ouvert
-
-À la fin de la session, dans le `README` :
-
-- Ajouter l’outil utilisé (Pleiade, ChatGPT, Perplexity, Copilot, etc.)
-- Ajouter le modèle utilisé
-- Ajouter le nombre de requêtes réalisées
+```
+.
+├── data/                       # Article (PDF) + données d'expression
+├── tp_python/                  # Implémentation Python (Pixi)
+│   ├── figure_2a.py            #   pipeline de reproduction
+│   ├── tests/                  #   tests pytest
+│   ├── pixi.toml / pyproject.toml
+│   ├── CITATION.cff / codemeta.json
+│   └── README.md
+├── tp_r/cellcyclefig2a/        # Implémentation R (package + renv)
+│   ├── R/                      #   fonctions (load_data, process_data, visualize)
+│   ├── tests/testthat/         #   tests testthat
+│   ├── DESCRIPTION / NAMESPACE / renv.lock
+│   └── README.md
+└── .github/workflows/          # CI qualité + release
+```
 
 ## Traçabilité de l'assistance IA
 
-- **Groupe** : XX — reverse engineering (reproduction de figure)
-- **Outil utilisé** : Claude Code
-- **Modèle utilisé** : Claude Opus 4.8 (`claude-opus-4-8`, confirmé via la commande `/model`)
-- **Nombre de requêtes réalisées** : ~30 (prompts utilisateur de la session)
-- **Nombre de tokens utilisés** : ~248,9k au total (117,9k en entrée + 131,0k en sortie) — modèle `claude-opus-4-8`
-
-**Travail réalisé** : reproduction de la **Figure 2A** de l'article (heatmap des
-gènes périodiques du cycle cellulaire de *S. cerevisiae*), réalisée à la fois en
-**Python** (`tp_python/`) et en **R** (`tp_r/cellcyclefig2a/`), avec mise aux
-normes complète (environnement reproductible, typage/documentation, qualité,
-sécurité, tests, couverture, CI) et application des bonnes pratiques open source.
-
-## Contributor Code of Conduct
-
-Veuillez noter que ce projet est publié avec le [Contributor Covenant Code of Conduct](https://www.contributor-covenant.org/). En participant, vous acceptez d’en respecter les termes. Voir le fichier [CODE_OF_CONDUCT](code_of_conduct.md).
+| | |
+|---|---|
+| **Groupe** | XX — reverse engineering |
+| **Outil** | Claude Code |
+| **Modèle** | Claude Opus 4.8 (`claude-opus-4-8`, confirmé via `/model`) |
+| **Requêtes** | ~30 (prompts utilisateur de la session) |
+| **Tokens** | ~248,9k au total (117,9k en entrée + 131,0k en sortie) |
 
 ## Licence
 
-[![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa]
+Le code de ce dépôt est distribué sous licence **MIT** (voir les fichiers
+`LICENSE` dans `tp_python/` et `tp_r/cellcyclefig2a/`). Le matériel pédagogique
+d'origine reste sous [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/).
+Voir aussi le [Code de conduite](code_of_conduct.md).
 
-[![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa]
+## Référence
 
-[cc-by-sa]: http://creativecommons.org/licenses/by-sa/4.0/
-[cc-by-sa-image]: https://licensebuttons.net/l/by-sa/4.0/88x31.png
-[cc-by-sa-shield]: https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg
-
-----
+Kelliher CM, Leman AR, Sierra CS, Haase SB (2016) *Investigating Conservation of
+the Cell-Cycle-Regulated Transcriptional Program in the Fungal Pathogen,
+Cryptococcus neoformans.* PLOS Genetics 12(12): e1006453.
+<https://doi.org/10.1371/journal.pgen.1006453>
