@@ -80,7 +80,7 @@ d'expression RNA-seq, accession GEO **GSE80474**).
 
 - **Groupe** : 01 — reverse engineering
 - **Outil** : Claude Code
-- **Modèle** : Claude Fable 5 (`claude-fable-5`)
+- **Modèle** : Claude Opus 4.8 (`claude-opus-4-8`)
 - **Nombre de requêtes** : ~13 (prompts utilisateur de la session)
 - **Nombre de tokens utilisés** : _à compléter avec la sortie de `/cost`_ (la
   commande `/cost` de Claude Code affiche le total de tokens et le coût de la
