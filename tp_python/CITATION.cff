@@ -7,7 +7,7 @@ authors:
   - family-names: "Gautreau"
     given-names: "Guillaume"
     orcid: "https://orcid.org/0000-0002-0970-9361"
-    affiliation: "IA-BioSoftware-Workshop"
+    affiliation: "Université Paris-Saclay, INRAE, MaIAGE, Jouy-en-Josas, France"
 repository-code: "https://github.com/ggautreau/IA-BioSoftware-Workshop"
 license: MIT
 version: "0.1.0"
