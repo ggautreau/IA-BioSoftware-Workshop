@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Couverture
+.coverage
+coverage.xml
+htmlcov/
+
+# Pixi
+.pixi/
+
+# Environnements
+.env
+.venv/

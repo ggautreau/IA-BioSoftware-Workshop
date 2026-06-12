@@ -1,0 +1,31 @@
+[project]
+name = "figure-2a-cellcycle"
+version = "0.1.0"
+description = "Reproduction de la Figure 2A de Kelliher et al. 2016 (heatmap des genes periodiques du cycle cellulaire de S. cerevisiae)."
+authors = [{ name = "Guillaume Gautreau", email = "guillaume.gautreau44@gmail.com" }]
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+keywords = ["bioinformatique", "cycle-cellulaire", "transcriptomique", "heatmap"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "D", "N"]
+ignore = ["D203", "D212"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D"]
+
+[tool.pyright]
+pythonVersion = "3.10"
+typeCheckingMode = "basic"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=figure_2a --cov-report=term-missing --cov-report=xml"

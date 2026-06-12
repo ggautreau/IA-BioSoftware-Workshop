@@ -1,0 +1,33 @@
+[project]
+name = "figure-2a-cellcycle"
+version = "0.1.0"
+description = "Reproduction de la Figure 2A de Kelliher et al. 2016."
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-64", "osx-arm64", "win-64"]
+
+[dependencies]
+python = ">=3.10"
+pandas = ">=2.0"
+numpy = ">=1.24"
+matplotlib = ">=3.7"
+
+[feature.dev.dependencies]
+ruff = "*"
+pyright = "*"
+pytest = "*"
+pytest-cov = "*"
+safety = "*"
+
+[feature.dev.tasks]
+figure = "python figure_2a.py"
+lint = "ruff check ."
+format = "ruff format ."
+typecheck = "pyright figure_2a.py"
+safety-check = "safety check"
+test = "pytest"
+coverage = "pytest --cov=figure_2a --cov-report=term-missing"
+all-checks = { depends-on = ["lint", "typecheck", "test"] }
+
+[environments]
+default = { features = [] }
+dev = { features = ["dev"] }
