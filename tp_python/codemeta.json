@@ -16,7 +16,8 @@
     {
       "@type": "Person",
       "givenName": "Guillaume",
-      "familyName": "Gautreau"
+      "familyName": "Gautreau",
+      "@id": "https://orcid.org/0000-0002-0970-9361"
     }
   ],
   "codeRepository": "https://github.com/ggautreau/IA-BioSoftware-Workshop",
