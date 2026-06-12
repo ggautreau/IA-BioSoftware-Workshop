@@ -28,8 +28,9 @@ code est mis aux normes de développement logiciel et de science ouverte.
 
 > Réalisé dans le cadre de l'atelier *« Utilisation des IA génératives comme appui
 > à la programmation et au scripting pour la biologie »* (IFB / Université Paris
-> Cité / MERIT) — **groupe XX, reverse engineering**. Le sujet d'origine est le
-> dépôt [IFB-ElixirFr/IA-BioSoftware-Workshop](https://github.com/IFB-ElixirFr/IA-BioSoftware-Workshop).
+> Cité / MERIT). J'étais inscrit dans le **groupe reverse engineering**, mais
+> ayant eu le temps, j'ai **aussi traité la partie bioreprod**. Le sujet d'origine
+> est le dépôt [IFB-ElixirFr/IA-BioSoftware-Workshop](https://github.com/IFB-ElixirFr/IA-BioSoftware-Workshop).
 
 <p align="center">
   <img src="tp_python/figure_2a.png" alt="Figure 2A reproduite (Python)" height="320">
@@ -117,7 +118,7 @@ Le dépôt suit les recommandations de
 
 | | |
 |---|---|
-| **Groupe** | XX — reverse engineering |
+| **Groupe** | reverse engineering (a aussi traité bioreprod, par temps disponible) |
 | **Outil** | Claude Code |
 | **Modèle** | Claude Opus 4.8 (`claude-opus-4-8`, confirmé via `/model`) |
 | **Requêtes** | ~30 (prompts utilisateur de la session) |

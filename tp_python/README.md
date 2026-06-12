@@ -78,7 +78,7 @@ d'expression RNA-seq, accession GEO **GSE80474**).
 
 ## Outil IA utilisé
 
-- **Groupe** : XX — reverse engineering
+- **Groupe** : reverse engineering (a aussi traité bioreprod, par temps disponible)
 - **Outil** : Claude Code
 - **Modèle** : Claude Opus 4.8 (`claude-opus-4-8`)
 - **Nombre de requêtes** : ~30 (prompts utilisateur de la session)
