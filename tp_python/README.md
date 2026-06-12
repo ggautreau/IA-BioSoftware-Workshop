@@ -78,9 +78,13 @@ d'expression RNA-seq, accession GEO **GSE80474**).
 
 ## Outil IA utilisé
 
+- **Groupe** : 01 — reverse engineering
 - **Outil** : Claude Code
-- **Modèle** : Claude Fable 5
-- **Nombre de requêtes** : _à compléter en fin de session_
+- **Modèle** : Claude Fable 5 (`claude-fable-5`)
+- **Nombre de requêtes** : ~13 (prompts utilisateur de la session)
+- **Nombre de tokens utilisés** : _à compléter avec la sortie de `/cost`_ (la
+  commande `/cost` de Claude Code affiche le total de tokens et le coût de la
+  session)
 
 ## Licence
 
